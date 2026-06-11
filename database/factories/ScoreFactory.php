@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Decision;
+use App\Models\Factor;
 use App\Models\Score;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +20,9 @@ class ScoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'option_id' => Decision::factory() ,
+            'factor_id' => Factor::factory() ,
+            'weight' => fake()->numberBetween(1,5),
         ];
     }
 }

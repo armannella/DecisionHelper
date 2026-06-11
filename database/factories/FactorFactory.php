@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Decision;
 use App\Models\Factor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,9 @@ class FactorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'decision_id' => Decision::factory() ,
+            'title' => fake()->sentence(6,true),
+            'weight' => fake()->numberBetween(1,5),
         ];
     }
 }

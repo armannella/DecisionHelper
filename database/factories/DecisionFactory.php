@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\DecisionType;
 use App\Models\Decision;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,12 @@ class DecisionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory() ,
+            'title' => fake()->sentence(6,true),
+            "type" => fake()->randomElement(DecisionType::cases())
+
+
+
         ];
     }
 }

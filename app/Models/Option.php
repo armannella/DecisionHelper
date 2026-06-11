@@ -9,7 +9,7 @@ class Option extends Model
 {
     /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
-
+    protected $fillable = ['title'];
     public function decision(){
         return $this->belongsTo(Decision::class);
     }

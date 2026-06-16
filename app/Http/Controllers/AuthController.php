@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         $user = User::create($registerRequest->validated());
         Auth::login($user);
-        Log::info("User Registered" , ["user_id" => $user->id , "email" => $user->email]);
+        Log::channel('personal')->info("User Registered" , ["user_id" => $user->id , "email" => $user->email]);
         return redirect()->route('dashboard')->with("success","Welcome dear {$user->name} . you successfully registered !");
     }
 
@@ -35,7 +35,8 @@ class AuthController extends Controller
     public function login(LoginRequest $loginRequest){
         if(Auth::attempt($loginRequest->validated())){
             $loginRequest->session()->regenerate();
-            return redirect()->intended(route("dashboard"))->with("success","Welcome dear {$loginRequest->name} !");
+            Log::channel('personal')->info("User Login" , ["user_id" => Auth::id() , "email" => Auth::user()->email]);
+            return redirect()->route("dashboard")->with("success","Welcome dear " . Auth::user()->name . " !");
         }
 
         return back()->withErrors(["email" => "email or password is invalid"])->onlyInput('email');
@@ -45,7 +46,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route("auth.logout")->with("success" , "bye bye !");
+        return redirect()->route("auth.welcome")->with("success" , "bye bye !");
     }
 
     public function dashboard(){

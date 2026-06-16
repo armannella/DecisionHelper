@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Decision;
+use App\Models\Factor;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        Gate::define('isFactorForDecision' , function( Decision $decision , Factor $factor){
+            if($decision->id == $factor->decision_id){
+                return true;
+            }
+            else {
+                return false ;
+            }
+        });
     }
 }

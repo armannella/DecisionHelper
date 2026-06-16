@@ -26,9 +26,16 @@ Route::middleware("auth")->prefix("decisions")->group(function () {
     Route::get('/create/step2' , [DecisionController::class , "createStep2"])->name("decision.create2");
     Route::post('/' , [OptionController::class , "store"])->name("decision.store-step2");
     Route::get('/{decision}' , [DecisionController::class , "show"])->name("decision.show");
+    Route::delete('/{decision}' , [DecisionController::class , "destroy"])->name("decision.delete");
     Route::get("/{decision}/factor/binary" ,[FactorController::class,'createBinary'])->name("factor.createBinary");
     Route::post("/{decision}/factor/binary" ,[FactorController::class,'storeBinary'])->name("factor.storeBinary");
     Route::get("/{decision}/factor/multi" ,[FactorController::class,'createMulti'])->name("factor.createMulti");
     Route::post("/{decision}/factor/multi" ,[FactorController::class,'storeMulti'])->name("factor.storeMulti");
     Route::get("/{decision}/result" ,[DecisionController::class, 'calculateResults'])->name("decision.result");
+    Route::get("/{decision}/edit" ,[DecisionController::class, 'edit'])->name("decision.edit");
+    Route::patch("/{decision}" ,[DecisionController::class, 'update'])->name("decision.update");
+    Route::delete('/{decision}/factor/{factor}' , [FactorController::class , "destroy"])->name("factor.delete");
+    Route::get('/{decision}/factor/{factor}/edit' , [FactorController::class , "edit"])->name("factor.edit");
+    Route::patch('/{decision}/factor/{factor}/binary' , [FactorController::class , "updateBinary"])->name("factor.updatebinary");
+    Route::patch('/{decision}/factor/{factor}/multi' , [FactorController::class , "updateMulti"])->name("factor.updatemulti");
 });

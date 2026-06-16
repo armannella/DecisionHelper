@@ -25,7 +25,7 @@ class NewOptionsRequest extends FormRequest
     {
         return [
             "options" => ["required" , "array" , "min:2"],
-            "options.*" => ["required" , "string" , "max:255"]
+            "options.*" => ["required" , "string" ,"min:2", "max:255"]
         ];
     }
 
@@ -34,7 +34,7 @@ class NewOptionsRequest extends FormRequest
     {
         return [
             "options.min" => "You have to add at least 2 options ! " ,
-            "options.*.required" => "Wrie something . it can not be empty"
+            "options.*.required" => "Write something . it can not be empty"
         ];
     }
 }

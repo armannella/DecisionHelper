@@ -7,6 +7,7 @@ use App\Models\Option;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OptionController extends Controller
 {
@@ -44,7 +45,7 @@ class OptionController extends Controller
             return $decision;
         });
         
-
+        Log::channel('personal')->info("New Decision" , ["user_id" => Auth::id() , "email" => Auth::user()->email , 'decision_id' => $decision->id]);
         session()->forget('decisionData');
 
         return redirect()->route('decision.show' , $decision->id)->with("success" , "Decision {$decision->title} added successfully");

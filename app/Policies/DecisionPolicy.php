@@ -50,6 +50,9 @@ class DecisionPolicy
      */
     public function delete(User $user, Decision $decision): bool
     {
+        if($user->id == $decision->user_id){
+            return true;
+        }
         return false;
     }
 

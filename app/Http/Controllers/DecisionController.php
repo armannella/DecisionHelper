@@ -34,13 +34,13 @@ class DecisionController extends Controller
     {
         if(!session()->has('decisionData'))
         {
-                return view('Decision.create');
+            return view('Decision.create');
         }
         $data = session()->get('decisionData');
-        if($data['type']=== DecisionType::BINARY){
+        if($data['type']== DecisionType::BINARY->value){
             return view("binary.step-1");
         }
-        if($data['type']=== DecisionType::MULTI){
+        if($data['type']== DecisionType::MULTI->value){
             return view("multi.step-1");
         }
     }
@@ -61,8 +61,8 @@ class DecisionController extends Controller
     public function show(Decision $decision)
     {
         $this->authorize('view' , $decision);
-        $factors = $decision->factors()->latest()->get();
-        return view("Decision.show" , compact('factors')) ;
+        $factors = $decision->factors()->with('scores.option')->latest()->get();
+        return view("Decision.show" , compact('factors' , 'decision')) ;
     }
 
     /**
@@ -70,7 +70,8 @@ class DecisionController extends Controller
      */
     public function edit(Decision $decision)
     {
-        //
+        $this->authorize('isUserDecision' , $decision);
+        return view('Decision.edit' , compact('decision'));
     }
 
     /**
@@ -78,30 +79,25 @@ class DecisionController extends Controller
      */
     public function update(Request $request, Decision $decision)
     {
-        //
+        $this->authorize('isUserDecision' , $decision);
+        $data = $request->validate(["title"=>["required","string","min:5" , "max:255"]]);
+        $decision->update(["title" => $request->title]);
+        return redirect()->route("decision.show" , $decision->id)->with("success" , "You edited the decision Successfully");
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Decision $decision)
     {
-        //
+        $this->authorize('delete',$decision);
+        $decision->delete();
+        return redirect()->route("decision.all")->with('success' , "you deleted the decision successfully");
     }
 
     public function calculateResults(Decision $decision) {
-        $options = $decision->options()->get();
-        $finalscores = [];
-        foreach($options as $option) {
-            $scores = Score::where('option_id', $option->id)->get();
-            $total_score_option = 0 ;
-            foreach($scores as $score){
-                $total_score_option += ($score->score * $score->factor->weight);
-            }
-            $finalscores[$option->id] = $total_score_option;
-        }
-
-        arsort($finalscores);
-        return view('decision.result' , compact('finalscores'));
+        $finalscores = $decision->calculateResults();
+        return view('Decision.result' , compact('finalscores'));
     }
 }

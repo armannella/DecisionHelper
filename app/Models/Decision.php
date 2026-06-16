@@ -24,4 +24,20 @@ class Decision extends Model
     public function factors(){
         return $this->hasMany(Factor::class);
     }
+
+    public function calculateResults() {
+        $options = $this->options()->get();
+        $finalscores = [];
+        foreach($options as $option) {
+            $scores = Score::where('option_id', $option->id)->get();
+            $total_score_option = 0 ;
+            foreach($scores as $score){
+                $total_score_option += ($score->score * $score->factor->weight);
+            }
+            $finalscores[$option->title] = $total_score_option;
+        }
+
+        arsort($finalscores);
+        return $finalscores;
+    }
 }

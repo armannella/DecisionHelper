@@ -4,38 +4,54 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\FactorController;
 use App\Http\Controllers\OptionController;
-use App\Models\Decision;
-use App\Models\Option;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware("guest")->prefix('auth')->group(function() {
-    Route::get('/',[AuthController::class , 'welcome'])->name('auth.welcome');
-    Route::get('/register' , [AuthController::class , 'showRegisterForm'])->name('auth.registerForm');
-    Route::post('/register' , [AuthController::class , 'register'])->name('auth.register');
-    Route::get('/login' , [AuthController::class , 'showLoginForm'])->name('auth.loginForm');
-    Route::post('/login' , [AuthController::class , 'login'])->name('auth.login');
+Route::middleware("guest")->prefix('auth')->controller(AuthController::class)->group(function() {
+    Route::get('/', 'welcome')->name('auth.welcome');
+    Route::get('/register' , 'showRegisterForm')->name('auth.registerForm');
+    Route::post('/register' , 'register')->name('auth.register');
+    Route::get('/login' ,  'showLoginForm')->name('auth.loginForm');
+    Route::post('/login' , 'login')->name('auth.login');
 });
 
-Route::get('/',[AuthController::class , 'dashboard'])->name("dashboard")->middleware("auth");
-Route::post('/logout',[AuthController::class , 'logout'])->name("auth.logout")->middleware("auth");
+Route::middleware('auth')->group(function(){
 
-Route::middleware("auth")->prefix("decisions")->group(function () {
-    Route::get('/',[DecisionController::class,"index"])->name("decision.all");
-    Route::get('/create' , [DecisionController::class , "create"])->name('decision.create');
-    Route::post('/create/step-1' , [DecisionController::class , 'store'])->name('decision.store-step1');
-    Route::get('/create/step2' , [DecisionController::class , "createStep2"])->name("decision.create2");
-    Route::post('/' , [OptionController::class , "store"])->name("decision.store-step2");
-    Route::get('/{decision}' , [DecisionController::class , "show"])->name("decision.show");
-    Route::delete('/{decision}' , [DecisionController::class , "destroy"])->name("decision.delete");
-    Route::get("/{decision}/factor/binary" ,[FactorController::class,'createBinary'])->name("factor.createBinary");
-    Route::post("/{decision}/factor/binary" ,[FactorController::class,'storeBinary'])->name("factor.storeBinary");
-    Route::get("/{decision}/factor/multi" ,[FactorController::class,'createMulti'])->name("factor.createMulti");
-    Route::post("/{decision}/factor/multi" ,[FactorController::class,'storeMulti'])->name("factor.storeMulti");
-    Route::get("/{decision}/result" ,[DecisionController::class, 'calculateResults'])->name("decision.result");
-    Route::get("/{decision}/edit" ,[DecisionController::class, 'edit'])->name("decision.edit");
-    Route::patch("/{decision}" ,[DecisionController::class, 'update'])->name("decision.update");
-    Route::delete('/{decision}/factor/{factor}' , [FactorController::class , "destroy"])->name("factor.delete");
-    Route::get('/{decision}/factor/{factor}/edit' , [FactorController::class , "edit"])->name("factor.edit");
-    Route::patch('/{decision}/factor/{factor}/binary' , [FactorController::class , "updateBinary"])->name("factor.updatebinary");
-    Route::patch('/{decision}/factor/{factor}/multi' , [FactorController::class , "updateMulti"])->name("factor.updatemulti");
+    Route::controller(AuthController::class)->group(function(){
+        Route::get('/', 'dashboard')->name("dashboard");
+        Route::post('/logout','logout')->name("auth.logout");
+
+        // Route::prefix('profile')->controller(ProfileController::class)->group(function(){
+        //     Route::get('/','showProfile')->name('profile.show');
+        // });
+    });
+
+    Route::prefix("decisions")->group(function () {
+        Route::controller(DecisionController::class)->group(function() {
+            Route::get('/',"index")->name("decision.all");
+            Route::get('/create' , "create")->name('decision.create');
+            Route::post('/create/step-1', 'store')->name('decision.store-step1');
+            Route::get('/create/step2', "createStep2")->name("decision.create2");
+            Route::get('/{decision}', "show")->name("decision.show");
+            Route::delete('/{decision}', "destroy")->name("decision.delete");
+            Route::get("/{decision}/result" , 'calculateResults')->name("decision.result");
+            Route::get("/{decision}/edit" , 'edit')->name("decision.edit");
+            Route::patch("/{decision}" , 'update')->name("decision.update");
+        });
+
+        Route::controller(FactorController::class)->group(function(){
+            Route::get("/{decision}/factor/binary" ,'createBinary')->name("factor.createBinary");
+            Route::post("/{decision}/factor/binary" ,'storeBinary')->name("factor.storeBinary");
+            Route::get("/{decision}/factor/multi" ,'createMulti')->name("factor.createMulti");
+            Route::post("/{decision}/factor/multi" ,'storeMulti')->name("factor.storeMulti");
+    
+            Route::delete('/{decision}/factor/{factor}' , "destroy")->name("factor.delete");
+            Route::get('/{decision}/factor/{factor}/edit' , "edit")->name("factor.edit");
+            Route::patch('/{decision}/factor/{factor}/binary' , "updateBinary")->name("factor.updatebinary");
+            Route::patch('/{decision}/factor/{factor}/multi' , "updateMulti")->name("factor.updatemulti");
+        });
+
+        Route::post('/' , [OptionController::class , "store"])->name("decision.store-step2");
+    });
+
 });

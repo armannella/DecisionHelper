@@ -1,58 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Welcome to TasmimYar! 🎯
+Sometimes in life, we find ourselves at a crossroads where making a choice is truly difficult. We have various options, and for each, dozens of logical and emotional reasons spin in our heads.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A fascinating and proven solution for these moments is to use math and logic. TasmimYar is here to help you lay out your reasons to see which choice makes the most sense according to your own logic.
 
-## About Laravel
+In this app, we have designed two decision-making models for you:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# ⚖️ Mode 1: Binary Choices
+For times when you are stuck between doing or not doing something, or between two completely different choices, each with its own independent reasons.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Example: Suppose you want to decide whether to emigrate or not.
+You have some reasons for leaving (e.g., experiencing a new life, a stable economy, better career prospects).
+And you have other reasons for staying (e.g., being close to family, feeling like a first-class citizen, native culture and language).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+How does it work?
 
-## Learning Laravel
+You create a Binary decision and define these two states (Leave / Stay).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Now, you start adding factors (your reasons).
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+For each factor, you must specify two things: Weight and Score.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+💡 What is the difference between Weight and Score?
 
-## Agentic Development
+Weight (Importance): How important is this topic in your life overall? (from 1 to 5). For example, "Career Prospects" might have a weight of 5 (very important) for you.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Score: How well does this specific choice satisfy that need? (from 1 to 10). For example, the destination country might score an 8 out of 10 for career prospects.
 
-```bash
-composer require laravel/boost --dev
+# 📊 Mode 2: Multi-Case Choices
+For times when you want to choose one out of several different options, while the criteria remain the same for all options.
 
-php artisan boost:install
-```
+Example: You want to choose between 3 universities (Sharif, Amirkabir, and Tehran) for your master's degree. Your criteria for all these universities are the same: distance, global ranking, dorm conditions, and the academic level of professors.
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+How does it work?
 
-## Contributing
+You create a Multi decision and register your options (the universities).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+You define your factors (criteria) and assign an importance weight (from 1 to 5) to each factor.
 
-## Code of Conduct
+Finally, you give each university a score (from 1 to 10) for that specific factor. For example, you might give Tehran University's distance a score of 7, and Sharif a 5.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In the end, the system calculates the math and introduces the ultimate winner!
 
-## Security Vulnerabilities
+# 🔒 Security and Privacy
+All the data you register in this app (like decision titles, options, and your reasons) is stored encrypted in our database. No one except you can read them; not even me as the app developer! So, feel free to record your most personal decisions with complete peace of mind.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 💻 About This Release (Version 1.0.0)
+This application is my first serious web project, developed after about 7 months of learning web programming and software engineering. The appearance and user interface (UI/UX) might still need some work, but it will definitely improve once design colleagues join the team.
 
-## License
+# Technologies Used:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Backend: PHP and Laravel 13 framework
+Frontend: Laravel Blade and Bootstrap 5
+
+
+# 🙏 And Finally...
+The idea for this decision-making system was first proposed by the father of my dear friend Amir, Mr. Davood Ghazanfari. Previously, we did these calculations on paper or in Excel files. But now, a platform is available so you can easily register your decisions in an app, edit them, and always carry them in your pocket.
+
+I hope TasmimYar helps you make the best decisions of your life!

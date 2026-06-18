@@ -10,6 +10,7 @@ class Factor extends Model
     /** @use HasFactory<\Database\Factories\FactorFactory> */
     use HasFactory;
     protected $fillable = ['title' , 'weight'];
+    protected $casts = ['title' => 'encrypted'];
     public function decision(){
         return $this->belongsTo(Decision::class);
     }

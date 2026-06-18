@@ -52,6 +52,13 @@ Route::middleware('auth')->group(function(){
         });
 
         Route::post('/' , [OptionController::class , "store"])->name("decision.store-step2");
+
+        
     });
 
 });
+
+
+Route::get('/about/guide' , function(){
+            return view('about.guide');
+        })->name('about.guide');

@@ -24,7 +24,7 @@ class NewBinaryFactorRequest extends FormRequest
     {
         return [
             "option" => ["required" , "integer" ,"exists:options,id"],
-            "title" => ['required' , 'string' , 'min:5',"max:255"],
+            "title" => ['required' , 'string' , 'min:3',"max:60"],
             "weight" => ['required','integer', 'min:1' , 'max:5'],
             "score" =>['required' , 'integer' , 'min:1' , "max:10"]
         ];

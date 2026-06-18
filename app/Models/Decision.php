@@ -11,7 +11,7 @@ class Decision extends Model
     /** @use HasFactory<\Database\Factories\DecisionFactory> */
     use HasFactory;
     protected $fillable = ['title' , 'type'];
-    protected $casts = ["type" => DecisionType::class];
+    protected $casts = ["type" => DecisionType::class , 'title' => 'encrypted'];
 
     public function user(){
         return $this->belongsTo(User::class);

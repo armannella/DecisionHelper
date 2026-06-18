@@ -1,47 +1,36 @@
 @extends('layouts.master')
 
+@section('pagetitle', 'Dashboard - TasmimYar')
+@section('header', 'Welcome, ' . Auth::user()->name . '!')
 
-@section('pagetitle' , 'Tasmim Yar')
-
-@section('header' , 'Welcome')
+@section('sidebar')
+    @include('partials.sidebars.dashboard')
+@endsection
 
 @section('content')
-
-<div class="container-fluid pt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="row">
-
-                        <x-buttons.tile>
-                            <x-slot name="color">green</x-slot>
-                            <x-slot name="route">{{route('decision.create')}}</x-slot>
-                            <x-slot name="icon">bi-folder-plus</x-slot>
-                            New Decision
-                        </x-buttons.tile>
+    <div class="row pe-md-4">
         
-                        <x-buttons.tile>
-                            <x-slot name="color">red</x-slot>
-                            <x-slot name="route">{{route('decision.all')}}</x-slot>
-                            <x-slot name="icon">bi-journal-code</x-slot>
-                            My Decisions
-                        </x-buttons.tile>
-
-                        <x-buttons.tile>
-                            <x-slot name="color">orange</x-slot>
-                            <x-slot name="route">{{}}</x-slot>
-                            <x-slot name="icon">bi-question-square"</x-slot>
-                            How to use
-                        </x-buttons.tile>
-
-                        <x-buttons.tile>
-                            <x-slot name="color">purple</x-slot>
-                            <x-slot name="route">{{ route('auth.logout') }}</x-slot>
-                            <x-slot name="icon">bi-box-arrow-left</x-slot>
-                            Logout
-                        </x-buttons.tile>
-
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-6 mb-4">
+            <x-tile href="{{ route('decision.all') }}" color="bgc-blue" icon="bi-collection" title="My Decisions" />
         </div>
+
+        <div class="col-md-6 mb-4">
+            <x-tile href="{{ route('decision.create') }}" color="bgc-green" icon="bi-plus-circle" title="New Decision" />
+        </div>
+
+        <div class="col-md-6 mb-4">
+                    <x-tile href="{{ route('about.guide') }}" color="bgc-purple" icon="bi-info-circle" title="How to use This App" />
+                </div>
+
+        <div class="col-md-6 mb-4">
+            <form action="{{ route('auth.logout') }}" method="POST" class="w-100">
+                @csrf
+                <button type="submit" class="tile bgc-red w-100 text-white" style="cursor: pointer;">
+                    <i class="bi bi-box-arrow-right mb-2 fs-1"></i>
+                    <h3 class="m-0 fw-light">Logout</h3>
+                </button>
+            </form>
+        </div>
+
+    </div>
 @endsection

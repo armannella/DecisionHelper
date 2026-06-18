@@ -23,7 +23,7 @@ class NewMultiFactorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ['required' , 'string' , 'min:5' , 'max:255'],
+            "title" => ['required' , 'string' , 'min:3' , 'max:60'],
             "weight" => ['required' , 'integer', 'min:1' , 'max:5'],
             "scores" => ['required' ,'array' , 'min:2' ] ,
             "scores.*" => ['required', 'integer','min:1' , 'max:10' ]

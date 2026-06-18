@@ -10,6 +10,7 @@ class Option extends Model
     /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
     protected $fillable = ['title'];
+    protected $casts = ['title' => 'encrypted'];
     public function decision(){
         return $this->belongsTo(Decision::class);
     }

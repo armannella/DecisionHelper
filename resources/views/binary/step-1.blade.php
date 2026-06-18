@@ -1,43 +1,30 @@
 @extends('layouts.master')
 
-@section('pagetitle' , 'TasmimYar')
+@section('pagetitle', 'Step 2: Binary Options')
+@section('header', 'Define Your Two Choices')
 
-@section('header', 'New Decision')
+@section('sidebar')
+    @include('partials.sidebars.decisioncreatebinary')
+@endsection
 
 @section('content')
+    <div class="row border-start border-light ps-md-4" style="border-opacity: 0.2;">
+        <div class="col-md-9">
+            <form action="{{ route('decision.store-step2') }}" method="POST">
+                @csrf
+                
+                <label for="option1" class="form-label">Option 1 :</label>
+                <input type="text" class="form-control mb-2" name="options[]" id="option1" value="{{ old('options.0') }}" placeholder="Enter first choice" required>
+                @error('options.0') <p class="text-warning m-0 mt-1" style="font-size: 14px;">* {{$message}}</p> @enderror
 
-<div class="container-fluid pt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="row">
-                    <div class="col-md-4">
-                        <form action="{{ route('decision.store-step2') }}" id="decisionCreate2" method="POST">
-                            @csrf
-                            
-                            <label for="option1" class="form-label">Option 1 :</label>
-                            <input type="text" class="form-control mb-2" name="options[]" id="option1" value="{{ old('options.0') }}" placeholder="Enter Case 1 title" required>
-                            
-                            @error('options.0')
-                                <p class="text-warning">* {{$message}}</p>
-                            @enderror
+                <label for="option2" class="form-label mt-4">Option 2 :</label>
+                <input type="text" class="form-control mb-2" name="options[]" id="option2" value="{{ old('options.1') }}" placeholder="Enter second choice" required>
+                @error('options.1') <p class="text-warning m-0 mt-1" style="font-size: 14px;">* {{$message}}</p> @enderror
 
-                            <label for="option2" class="form-label">Option 2 :</label>
-                            <input type="text" class="form-control mb-2" name="options[]" id="option2" value="{{ old('options.1') }}" placeholder="Enter case 2 title" required>
-                            @error('options.1')
-                                <p class="text-warning">* {{$message}}</p>
-                            @enderror
-                            
-                            @error('options')
-                                 <p class="text-warning">* {{$message}}</p>
-                             @enderror
+                @error('options') <p class="text-warning m-0 mt-3">* {{$message}}</p> @enderror
 
-                            
-                            <input type="submit"  class="dokme bgc-green mb-3 mt-5" value="Create !">
-                        </form>
-                    </div>
-                </div>
-                </div>
-            </div>
-</div>
-
+                <x-button color="bgc-green">Create Decision !</x-button>
+            </form>
+        </div>
+    </div>
 @endsection

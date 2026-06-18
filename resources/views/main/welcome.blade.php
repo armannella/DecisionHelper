@@ -1,47 +1,37 @@
 @extends('layouts.master')
 
-
-@section('pagetitle' , 'Tasmim Yar')
-
-@section('header' , 'Welcome')
+@section('pagetitle', 'Welcome to TasmimYar')
+@section('header', "TasmimYar")
 
 @section('content')
+    <div class="row justify-content-center text-center mt-4">
+        <div class="col-md-10">
+            
+            <i class="bi bi-bezier2 text-warning mb-2 d-block" style="font-size: 80px;"></i>
+            <h1 class="fw-light mb-3" style="font-size: 40px;">Make Better Decisions with Logic!</h1>
+            <p class="fs-5 opacity-75 mb-5 px-md-5">
+                TasmimYar helps you analyze your choices logically, step by step. 
+                For when you are stuck between several options for a decision and you have your reasons for each option.
+            </p>
 
-<div class="container-fluid pt-5">
             <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="row">
+                <div class="col-md-5 col-12 mb-3">
+                    <x-tile href="{{ route('auth.registerForm') }}" color="bgc-green" icon="bi-person-plus" title="Get Started (Register)" />
+                </div>
+                
+                <div class="col-md-5 col-12 mb-3">
+                    <x-tile href="{{ route('auth.loginForm') }}" color="bgc-blue" icon="bi-box-arrow-in-right" title="I have an account (Login)" />
+                </div>
 
-                        <x-buttons.tile>
-                            <x-slot name="color">green</x-slot>
-                            <x-slot name="route">{{route('auth.registerForm')}}</x-slot>
-                            <x-slot name="icon">bi-person-plus-fill</x-slot>
-                            Register
-                        </x-buttons.tile>
-        
-                        <x-buttons.tile>
-                            <x-slot name="color">red</x-slot>
-                            <x-slot name="route">{{route('auth.loginForm')}}</x-slot>
-                            <x-slot name="icon">bi-person-check-fill</x-slot>
-                            Login
-                        </x-buttons.tile>
-
-                        <x-buttons.tile>
-                            <x-slot name="color">orange</x-slot>
-                            <x-slot name="route">{{}}</x-slot>
-                            <x-slot name="icon">bi-question-square"</x-slot>
-                            How to use
-                        </x-buttons.tile>
-
-                        <x-buttons.tile>
-                            <x-slot name="color">purple</x-slot>
-                            <x-slot name="route">https://www.linkedin.com/in/armannella/</x-slot>
-                            <x-slot name="icon">bi-info-square</x-slot>
-                            About me
-                        </x-buttons.tile>
-
-                    </div>
+                <div class="col-md-5 col-12 mb-3">
+                    <x-tile href="{{ route('about.guide') }}" color="bgc-purple" icon="bi-info-circle" title="How to use This App" />
+                </div>
+                
+                <div class="col-md-5 col-12 mb-3">
+                    <x-tile href="https://www.linkedin.com/in/armannella/" color="bgc-red" icon="bi-linkedin" title="َAbout Me" />
                 </div>
             </div>
+
         </div>
+    </div>
 @endsection

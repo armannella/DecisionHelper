@@ -25,7 +25,7 @@ class NewOptionsRequest extends FormRequest
     {
         return [
             "options" => ["required" , "array" , "min:2"],
-            "options.*" => ["required" , "string" ,"min:2", "max:255"]
+            "options.*" => ["required" , "string" ,"min:2", "max:60"]
         ];
     }
 

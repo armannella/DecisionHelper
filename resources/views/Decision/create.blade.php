@@ -1,42 +1,41 @@
 @extends('layouts.master')
 
-@section('pagetitle' , 'TasmimYar')
+@section('pagetitle', 'Step 1: New Decision')
+@section('header', 'Create a New Decision')
 
-@section('header', 'New Decision')
+@section('sidebar')
+    @include('partials.sidebars.decisioncreatestep1')
+@endsection
 
 @section('content')
+    <div class="row border-start border-light ps-md-4" style="border-opacity: 0.2;">
+        <div class="col-md-9">
+            <form action="{{ route('decision.store-step1') }}" id="decisionCreate1" method="POST">
+                @csrf
+                
+                <x-input name="title" label="Decision Title" placeholder="e.g. Buying a new house" />
+                
+                <label class="form-label mt-4 mb-3">Decision Type :</label>
+                <div class="btn-group w-100" role="group">
+                    
+                    <input type="radio" class="btn-check" id="multi" name="type" value="multi" autocomplete="off" {{ old('type') == 'multi' ? 'checked' : '' }}>
+                    <label class="btn btn-outline-warning p-3 p-md-4" for="multi">
+                        <i class="bi bi-ui-radios-grid d-block mb-2 fs-3"></i> Multi Cases
+                    </label>
 
-<div class="container-fluid pt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="row">
-                    <div class="col-md-4">
-                        <form action="{{ route('decision.store-step1') }}" id="decisionCreate1" method="POST">
-                            @csrf
-                            
-                            <label for="title" class="form-label">Title :</label>
-                            <input type="text" class="form-control mb-2" name="title" id="title" value="{{ old('title') }}" placeholder="Enter Decision title" required>
-                            
-                            @error('title')
-                                <p class="text-warning">* {{$message}}</p>
-                            @enderror
-
-                            <label for="type" class="form-label mt-3">Type :</label>
-                            <div class="btn-group w-100" role="group">
-                                <input type="radio" class="btn-check" id="multi" name="type" value="multi" autocomplete="off">
-                                <label class="btn btn-outline-warning p-4" for="multi">Multi Cases</label>
-                            
-                            
-                                <input type="radio" class="btn-check" id="binary" name="type" value="binary" autocomplete="off" checked>
-                                <label class="btn btn-outline-warning p-4" for="binary">Binary Cases</label>
-                            </div>
-                            
-                            <input type="submit"  class="dokme bgc-green mb-3 mt-5" value="Next Step !">
-                        </form>
-                    </div>
+                    <input type="radio" class="btn-check" id="binary" name="type" value="binary" autocomplete="off" {{ old('type', 'binary') == 'binary' ? 'checked' : '' }}>
+                    <label class="btn btn-outline-warning p-3 p-md-4" for="binary">
+                        <i class="bi bi-symmetry-vertical d-block mb-2 fs-3"></i> Binary Cases
+                    </label>
+                    
                 </div>
-                </div>
-            </div>
-</div>
+                
+                @error('type')
+                    <p class="text-warning m-0 mt-2" style="font-size: 14px;">* {{ $message }}</p>
+                @enderror
 
+                <x-button color="bgc-green">Next Step <i class="bi bi-arrow-right ms-2"></i></x-button>
+            </form>
+        </div>
+    </div>
 @endsection

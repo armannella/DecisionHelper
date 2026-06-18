@@ -25,7 +25,7 @@ class NewDecisionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title"=>["required","string","min:5" , "max:255"],
+            "title"=>["required","string","min:3" , "max:60"],
             "type" => [Rule::enum(DecisionType::class)]
         ];
     }
